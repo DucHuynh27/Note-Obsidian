@@ -31,8 +31,8 @@
       "path": "Tài nguyên/TS/Buổi 3.pptx",
       "size": 512723,
       "mtime": 1787206590356,
-      "slideIndex": 31,
-      "updatedAt": 1788420453054
+      "slideIndex": 18,
+      "updatedAt": 1789625263151
     },
     "Tài nguyên/TS/Buổi 2.pptx": {
       "path": "Tài nguyên/TS/Buổi 2.pptx",
@@ -45,8 +45,22 @@
       "path": "Tài nguyên/TS/Buổi 4.pptx",
       "size": 455295,
       "mtime": 1787206588558,
-      "slideIndex": 21,
-      "updatedAt": 1789025004771
+      "slideIndex": 12,
+      "updatedAt": 1789625292847
+    },
+    "Tài nguyên/TS/Buổi 5.pptx": {
+      "path": "Tài nguyên/TS/Buổi 5.pptx",
+      "size": 114257,
+      "mtime": 1787206589909,
+      "slideIndex": 18,
+      "updatedAt": 1790231990592
+    },
+    "Tài nguyên/TS/Buổi 6.pptx": {
+      "path": "Tài nguyên/TS/Buổi 6.pptx",
+      "size": 488695,
+      "mtime": 1787206588293,
+      "slideIndex": 5,
+      "updatedAt": 1790234353298
     }
   },
   "companionNotes": {}
