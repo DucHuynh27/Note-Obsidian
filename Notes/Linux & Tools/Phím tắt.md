@@ -96,15 +96,8 @@ aliases:
 ### 2.9. Terminal tích hợp
 | Phím tắt | Ngữ cảnh | Chức năng |
 | :--- | :--- | :--- |
-| **`Ctrl + \`** | Bất kỳ đâu | Bật/Tắt thanh Terminal nổi ngang ở dưới đáy màn hình (`ToggleTerm`). |
+| **`Ctrl + \`** | Bất kỳ đâu | Bật/Tắt thanh Terminal ở dưới đáy màn hình (`Snacks.terminal`). |
 | **`jk`** | Trong Terminal | Thoát chế độ gõ dòng lệnh, chuyển sang Normal mode để cuộn chuột xem Log. |
-### 2.10. Siêu năng lực Java (`nvim-jdtls`)
-| Phím tắt | Chức năng |
-| :--- | :--- |
-| **`<leader>jo`** | **Java Organize Imports**: Tự động gỡ thư viện thừa, nạp thư viện còn thiếu. |
-| **`<leader>jv`** | **Extract Variable**: Tách đoạn code đang bôi đen thành Biến cục bộ. |
-| **`<leader>jc`** | **Extract Constant**: Tách đoạn code đang bôi đen thành Hằng số (Constant). |
-| **`<leader>jm`** | **Extract Method**: Gói đoạn code đang bôi đen thành một Hàm/Phương thức mới. |
 
 ---
 ## 3. Thao tác với Yazi (Terminal File Manager)

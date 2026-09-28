@@ -25,6 +25,8 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 * **`bufferline.nvim`**: Quản lý danh sách file đang mở dạng Tab ở đỉnh màn hình. Hoạt động ở chế độ ngủ (ẩn thanh Tab) và chỉ xuất hiện khi bạn bấm chuyển Tab (`Shift + H / L`).
 * **`indent-blankline.nvim`**: Đường gióng thụt lề 7 màu cầu vồng giúp phân biệt rõ ràng các tầng code lồng nhau.
 * **`dressing.nvim`**: Chuyển đổi toàn bộ menu chọn lựa và hộp thoại nhập liệu mặc định thành cửa sổ nổi bo góc sang trọng.
+* **`snacks.nvim`**: "Siêu vũ khí" đa năng của Folke – gồm Màn hình chào ngầu (Dashboard), Thông báo nổi (Notifier), Chống đơ máy khi mở file nặng (Bigfile), và tích hợp Lazygit nổi.
+* **`nvim-highlight-colors`**: Tự động tô màu nền trực tiếp cho các mã màu (HEX, RGB, HSL, CSS color names, và class Tailwind CSS).
 
 ### Tìm kiếm & Điều hướng
 * **`fzf-lua`**: Công cụ tìm kiếm siêu tốc viết bằng C/Rust. Dùng để tìm file theo tên hoặc quét sâu từng đoạn text trong dự án với tốc độ tức thì.
@@ -38,13 +40,12 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
   * **HTML / CSS**: `html`, `cssls`.
   * **Python**: `pyright` (bắt lỗi logic, type) kết hợp `ruff` (linter/formatter siêu tốc số 1 hiện nay).
   * **DevOps / Hệ thống**: `dockerls`, `yamlls`, `jsonls`, `bashls`, `nil_ls` (Nix).
-* **`nvim-jdtls`**: Bộ công cụ độc quyền cho Java (tự động tổ chức Import, bọc biến, bọc hàm).
 * **`nvim-cmp` + `LuaSnip` + `friendly-snippets`**: Hệ thống gợi ý code đa nguồn (LSP, Buffer, Path, Snippets).
 * **`conform.nvim`**: Tự động căn chỉnh format code chuẩn mực quốc tế (`<leader>fm`).
 
 ### Git & Terminal
 * **`gitsigns.nvim`**: Hiển thị vạch màu xanh lá / vàng / đỏ ở lề trái báo hiệu các dòng vừa thêm / sửa / xóa.
-* **`toggleterm.nvim`**: Mở cửa sổ Terminal ở đáy màn hình phong cách VSCode.
+* **`snacks.terminal`**: Mở cửa sổ Terminal nổi/đáy màn hình siêu tốc (`Ctrl + \`).
 
 ---
 
@@ -96,15 +97,12 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 | **`<leader>sx`** | Đóng cửa sổ chia hiện tại. |
 | **`Ctrl + \`** | Bật/Tắt Terminal ở đáy màn hình. Khi đang ở trong Terminal, bấm `jk` để thoát chế độ gõ và cuộn chuột lên xem Log. |
 
-### 6. Git & Siêu năng lực Java
+### 6. Quản lý Git
 | Phím tắt | Chức năng & Cách sử dụng |
 | :--- | :--- |
+| **`<leader>gg`** | Mở **Lazygit** trong cửa sổ nổi siêu xịn để quản lý commit/push/branch. |
 | **`]h`** / **`[h`** | Nhảy đến đoạn code có thay đổi so với Git tiếp theo / trước đó. |
 | **`<leader>hp`** | Xem trước (Preview) đoạn code gốc đã bị sửa/xóa trước khi Commit. |
-| **`<leader>jo`** *(Java)* | **Organize Imports:** Tự động xóa import thừa, thêm các import thiếu ở đầu file. |
-| **`<leader>jv`** *(Java)* | Bôi đen một đoạn code $\rightarrow$ bấm để tách thành một Biến cục bộ. |
-| **`<leader>jc`** *(Java)* | Bôi đen một đoạn code $\rightarrow$ bấm để tách thành một Hằng số (Constant). |
-| **`<leader>jm`** *(Java)* | Bôi đen một khối lệnh $\rightarrow$ bấm để gói thành một Hàm (Method) riêng biệt. |
 
 ---
 
@@ -130,10 +128,6 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 * **`link:css`**: Sinh thẻ liên kết file CSS: `<link rel="stylesheet" href="style.css">`.
 * **`script:src`**: Sinh thẻ liên kết file Script: `<script src="..."></script>`.
 
-### 4. Java (`.java`)
-* **`main`**: Sinh hàm thực thi chính: `public static void main(String[] args) { ... }`.
-* **`sout`** hoặc **`sysout`**: Sinh lệnh in ra màn hình: `System.out.println(...);`.
-
-### 5. Python (`.py`)
+### 4. Python (`.py`)
 * **`def`**: Sinh khung định nghĩa hàm: `def function_name(args):`.
 * **`ifmain`**: Sinh khối điều kiện chạy file: `if __name__ == "__main__":`.
