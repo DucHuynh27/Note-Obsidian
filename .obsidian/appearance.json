@@ -4,6 +4,7 @@
   ],
   "theme": "obsidian",
   "cssTheme": "",
-  "interfaceFontFamily": "Maple Mono NF",
-  "textFontFamily": "Maple Mono NF"
+  "interfaceFontFamily": "IBM Plex Sans",
+  "textFontFamily": "IBM Plex Sans",
+  "monospaceFontFamily": "IBM Plex Mono"
 }
