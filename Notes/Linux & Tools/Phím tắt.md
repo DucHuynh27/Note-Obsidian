@@ -90,8 +90,8 @@ aliases:
 | :--- | :--- |
 | **`<leader>e`** | **Oil File Manager**: Mở và quản lý thư mục như một file text (tạo/xóa/sửa tên file rồi `:w`). |
 | **`<leader>un`** | Xóa ngay lập tức mọi thông báo nổi (Notification dismiss). |
-| **`Shift + H`** | Nhảy sang Tab bên trái (Buffer trước). |
-| **`Shift + L`** | Nhảy sang Tab bên phải (Buffer kế tiếp). |
+| **`Shift + H`** / **`Shift + ◄`** | Nhảy sang Tab bên trái (Buffer trước). |
+| **`Shift + L`** / **`Shift + ►`** | Nhảy sang Tab bên phải (Buffer kế tiếp). |
 | **`<leader>x`** | Đóng Tab/Buffer hiện tại. |
 ### 2.9. Terminal tích hợp
 | Phím tắt | Ngữ cảnh | Chức năng |

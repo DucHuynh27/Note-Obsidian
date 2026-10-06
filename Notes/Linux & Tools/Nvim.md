@@ -22,7 +22,7 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 ### Giao diện & Tiện ích
 * **`oil.nvim` (+ `oil-git` + `oil-lsp-diagnostics`)**: Quản lý file độc đáo phong cách bộ nhớ đệm (Buffer). Cho phép sửa tên, tạo, xóa file y hệt như đang chỉnh sửa văn bản. Tự động hiển thị trạng thái Git (màu sắc, ký hiệu `+`, `~`, `D`) và dán cờ báo lỗi LSP trực tiếp trên cây thư mục.
 * **`lualine.nvim`**: Thanh trạng thái đáy màn hình hiển thị Mode, Branch Git, loại file và **thời tiết/nhiệt độ thời gian thực** (cập nhật ngầm mỗi 30 phút).
-* **`bufferline.nvim`**: Quản lý danh sách file đang mở dạng Tab ở đỉnh màn hình. Hoạt động ở chế độ ngủ (ẩn thanh Tab) và chỉ xuất hiện khi bạn bấm chuyển Tab (`Shift + H / L`).
+* **`bufferline.nvim`**: Luôn hiển thị danh sách các file đang mở dạng Tab ở đỉnh màn hình để dễ dàng quan sát và chuyển đổi.
 * **`indent-blankline.nvim`**: Đường gióng thụt lề 7 màu cầu vồng giúp phân biệt rõ ràng các tầng code lồng nhau.
 * **`dressing.nvim`**: Chuyển đổi toàn bộ menu chọn lựa và hộp thoại nhập liệu mặc định thành cửa sổ nổi bo góc sang trọng.
 * **`snacks.nvim`**: "Siêu vũ khí" đa năng của Folke – gồm Màn hình chào ngầu (Dashboard), Thông báo nổi (Notifier), Chống đơ máy khi mở file nặng (Bigfile), và tích hợp Lazygit nổi.
@@ -55,8 +55,8 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 | Phím tắt | Chức năng & Cách sử dụng |
 | :--- | :--- |
 | **`<leader>e`** | **Mở Oil (Quản lý file):** Danh sách file hiện ra như một trang văn bản. Di chuyển tới dòng file bấm `dd` để xóa, bấm `cw` để đổi tên, sau đó gõ `:w` để lưu lại thay đổi vào ổ cứng! Bấm phím `-` để quay lại thư mục cha. |
-| **`Shift + H`** | Nhảy sang Tab bên trái. |
-| **`Shift + L`** | Nhảy sang Tab bên phải. |
+| **`Shift + H`** / **`Shift + ◄`** | Nhảy sang Tab bên trái. |
+| **`Shift + L`** / **`Shift + ►`** | Nhảy sang Tab bên phải. |
 | **`<leader>x`** | Đóng Tab đang mở hiện tại. |
 
 ### 2. Tìm kiếm & Bay nhảy siêu tốc
