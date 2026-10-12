@@ -88,7 +88,7 @@ aliases:
 ### 2.8. Giao diện, Quản lý File & Tab
 | Phím tắt | Chức năng |
 | :--- | :--- |
-| **`<leader>e`** | **Oil File Manager**: Mở và quản lý thư mục như một file text (tạo/xóa/sửa tên file rồi `:w`). |
+| **`<leader>e`** | **Yazi File Manager**: Mở trình quản lý file Yazi dạng cửa sổ nổi (bấm **`<leader>E`** để mở lại phiên gần nhất). |
 | **`<leader>un`** | Xóa ngay lập tức mọi thông báo nổi (Notification dismiss). |
 | **`Shift + H`** / **`Shift + ◄`** | Nhảy sang Tab bên trái (Buffer trước). |
 | **`Shift + L`** / **`Shift + ►`** | Nhảy sang Tab bên phải (Buffer kế tiếp). |

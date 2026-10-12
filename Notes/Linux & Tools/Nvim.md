@@ -20,7 +20,7 @@ aliases:
 Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu tốc, tiêu tốn cực ít RAM, không rác, nhưng trang bị trọn gói cho JS/TS, React Native, Java, Python và DevOps**.
 
 ### Giao diện & Tiện ích
-* **`oil.nvim` (+ `oil-git` + `oil-lsp-diagnostics`)**: Quản lý file độc đáo phong cách bộ nhớ đệm (Buffer). Cho phép sửa tên, tạo, xóa file y hệt như đang chỉnh sửa văn bản. Tự động hiển thị trạng thái Git (màu sắc, ký hiệu `+`, `~`, `D`) và dán cờ báo lỗi LSP trực tiếp trên cây thư mục.
+* **`yazi.nvim`**: Trình quản lý file Yazi tích hợp trực tiếp dạng cửa sổ nổi siêu mượt. Hỗ trợ xem trước file/ảnh, nhảy thư mục thần tốc và giữ nguyên toàn bộ sức mạnh của Yazi ngay trong Neovim.
 * **`lualine.nvim`**: Thanh trạng thái đáy màn hình hiển thị Mode, Branch Git, loại file và **thời tiết/nhiệt độ thời gian thực** (cập nhật ngầm mỗi 30 phút).
 * **`bufferline.nvim`**: Luôn hiển thị danh sách các file đang mở dạng Tab ở đỉnh màn hình để dễ dàng quan sát và chuyển đổi.
 * **`indent-blankline.nvim`**: Đường gióng thụt lề 7 màu cầu vồng giúp phân biệt rõ ràng các tầng code lồng nhau.
@@ -54,7 +54,7 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 ### 1. Quản lý File & Tab
 | Phím tắt | Chức năng & Cách sử dụng |
 | :--- | :--- |
-| **`<leader>e`** | **Mở Oil (Quản lý file):** Danh sách file hiện ra như một trang văn bản. Di chuyển tới dòng file bấm `dd` để xóa, bấm `cw` để đổi tên, sau đó gõ `:w` để lưu lại thay đổi vào ổ cứng! Bấm phím `-` để quay lại thư mục cha. |
+| **`<leader>e`** | **Mở Yazi:** Bật cửa sổ nổi Yazi tại thư mục của file hiện tại để duyệt/mở/sửa file. Bấm **`<leader>E`** để mở lại phiên Yazi gần nhất. |
 | **`Shift + H`** / **`Shift + ◄`** | Nhảy sang Tab bên trái. |
 | **`Shift + L`** / **`Shift + ►`** | Nhảy sang Tab bên phải. |
 | **`<leader>x`** | Đóng Tab đang mở hiện tại. |
