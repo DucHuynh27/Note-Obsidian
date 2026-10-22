@@ -104,6 +104,15 @@ Hệ thống Neovim được tối ưu theo tiêu chí: **Khởi động siêu t
 | **`]h`** / **`[h`** | Nhảy đến đoạn code có thay đổi so với Git tiếp theo / trước đó. |
 | **`<leader>hp`** | Xem trước (Preview) đoạn code gốc đã bị sửa/xóa trước khi Commit. |
 
+### 7. Soạn thảo LaTeX (VimTeX)
+| Phím tắt | Chức năng & Cách sử dụng |
+| :--- | :--- |
+| **`\ll`** | **Bật/Tắt biên dịch tự động (Continuous Compile):** Tự dịch ra PDF ngầm mỗi khi bấm `:w` lưu bài. |
+| **`\lv`** | **Xem trước PDF (View):** Mở Zathura và nhảy đúng vị trí con trỏ đang đứng (SyncTeX). |
+| **`\lk`** | Dừng tiến trình biên dịch ngầm (Kill). |
+| **`\lc`** | Dọn dẹp sạch sẽ các file tạm rác (`.aux`, `.log`, `.synctex.gz`...). |
+| **`\le`** | Mở bảng xem chi tiết lỗi biên dịch (Errors log). |
+
 ---
 
 ## 3. Kho Đoạn code mẫu (Snippets)

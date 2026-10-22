@@ -175,3 +175,13 @@ aliases:
 - **`d`** (ở Panel Images/Volumes): Xóa image hoặc volume được chọn.
 - **`c`** : Dọn dẹp thùng rác Docker (**Prune** các container/image/volume không còn sử dụng).
 - **`b`** : Mở menu thực hiện lệnh hàng loạt (Bulk actions: dừng tất cả, xóa tất cả,...).
+
+---
+## 6. Phím tắt VimTeX (Soạn thảo LaTeX trong Neovim)
+| Phím tắt | Chức năng |
+| :--- | :--- |
+| **`\ll`** | **Bật/Tắt biên dịch tự động (Continuous Compile):** Tự dịch ra PDF ngầm mỗi khi bấm `:w` lưu bài. |
+| **`\lv`** | **Xem trước PDF (View):** Mở Zathura và nhảy đúng vị trí con trỏ đang đứng (SyncTeX). |
+| **`\lk`** | Dừng tiến trình biên dịch ngầm (Kill). |
+| **`\lc`** | Dọn dẹp sạch sẽ các file tạm rác (`.aux`, `.log`, `.synctex.gz`...). |
+| **`\le`** | Mở bảng xem chi tiết lỗi biên dịch (Errors log). |

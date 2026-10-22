@@ -34,8 +34,8 @@
     "debugMode": false,
     "useInternalPlugins": false
   },
-  "Tài nguyên": "LiBookmarkMinus",
   "Inbox": "LiNotepadText",
   "Notes": "LiNotebookTabs",
-  "Daily": "LiCalendar"
+  "Daily": "LiCalendar",
+  "Resources": "LiBookmarkMinus"
 }

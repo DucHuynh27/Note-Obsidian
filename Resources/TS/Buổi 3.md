@@ -1,5 +1,5 @@
 # Buổi 3
 
-[[Tài nguyên/TS/Buổi 3.pptx]]
+[[Buổi 3.pptx]]
 - k có gtr trả về thì luôn có `void`
 - 

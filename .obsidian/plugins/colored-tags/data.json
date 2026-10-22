@@ -10,6 +10,7 @@
     "highTextContrast": false
   },
   "knownTags": {
+    "bind_mount": 15,
     "career": 7,
     "dev": 8,
     "game": 9,
@@ -35,6 +36,7 @@
     "it/docker": 4,
     "it/homelab": 5,
     "it/networking": 6,
+    "it/podman": 7,
     "os/linux": 1,
     "os/nixos": 2,
     "skill/productivity": 1,
