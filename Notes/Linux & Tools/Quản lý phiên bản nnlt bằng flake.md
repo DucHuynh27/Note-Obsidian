@@ -17,14 +17,25 @@ aliases:
 > 3. Kể từ giờ, cứ vô tư dùng các lệnh sinh code (nest new, pnpm create...) để tạo ra hàng loạt dự án con bên trong. Công cụ direnv sẽ tự động mang môi trường từ thư mục cha áp dụng xuống thư mục con.
 ---
 ## 1. HỆ SINH THÁI NODE.JS (React, Vue, [[NestJS]], TS thuần...)
-Cơ chế của Node.js (nhờ file package.json và node_modules) quản lý thư viện độc lập cho từng thư mục. Do đó, áp dụng chiến thuật Workspace Cấp Cha là hoàn hảo 100%.
-### Bước 1: Setup 1 lần ở thư mục cha
-```
-nix flake init -t github:the-nix-way/dev-templates#node
-echo "use flake" > .envrc
-direnv allow
-```
-### Bước 2: Tạo các dự án con (bên trong thư mục cha)
+> [!TIP]
+> **Khuyên dùng fnm thay vì Nix Flake cho Node.js:**
+> Node.js ra bản mới rất nhanh (v24, v26...). Việc dùng Nix Flake làm chậm tiến độ cập nhật do phụ thuộc vào nixpkgs và gây nặng máy khi compile. 
+> Do đó, toàn bộ Node.js hiện tại được quản lý linh hoạt qua **fnm (Fast Node Manager)** đã được tích hợp sẵn vào Zsh shell.
+
+### Quản lý phiên bản với fnm:
+- **Cài đặt phiên bản Node mới nhất:**
+  ```bash
+  fnm install 24.22.1    # Cài đặt bản mong muốn
+  fnm default 24.22.1    # Đặt làm bản mặc định toàn hệ thống
+  ```
+- **Chỉ định Node cho từng dự án / Workspace:**
+  Tạo file `.node-version` ở thư mục dự án (hoặc thư mục cha chứa các dự án):
+  ```bash
+  echo "24.22.1" > .node-version
+  ```
+  *(Khi `cd` vào thư mục, fnm sẽ tự động kích hoạt phiên bản Node tương ứng mà không cần `direnv` hay `flake.nix`)*
+
+### Tạo các dự án con:
 - Nếu làm Frontend (React/Vue bằng Vite):
   Sinh thẳng code vào thư mục hiện tại (nhờ dấu .)
 ```
