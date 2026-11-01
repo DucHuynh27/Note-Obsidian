@@ -14,6 +14,7 @@ aliases:
   - Phím tắt Yazi
   - Phím tắt LazyGit
   - Phím tắt LazyDocker
+  - Phím tắt Umbriel
 ---
 ## 1. Phím tắt WezTerm (Quản lý Pane/Cửa sổ Terminal)
 - **`Ctrl + Shift + Enter`** : Chia ngang (Thường dùng để mở Server chạy ngầm bên cạnh Editor)
@@ -185,3 +186,70 @@ aliases:
 | **`\lk`** | Dừng tiến trình biên dịch ngầm (Kill). |
 | **`\lc`** | Dọn dẹp sạch sẽ các file tạm rác (`.aux`, `.log`, `.synctex.gz`...). |
 | **`\le`** | Mở bảng xem chi tiết lỗi biên dịch (Errors log). |
+
+---
+## 7. Phím tắt Umbriel
+### 7.1. Ứng dụng & Session
+| Phím tắt | Chức năng |
+| :--- | :--- |
+| **`Mod`** (nhấn rồi nhả) | Mở launcher Noctalia |
+| **`Mod + Enter`** | Mở WezTerm |
+| **`Mod + B`** | Mở Brave |
+| **`Mod + E`** | Mở Yazi (trong WezTerm) |
+| **`Mod + M`** | Đăng xuất phiên (terminate-user) |
+| **`Mod + Alt + L`** | Khoá màn hình |
+| **`Mod + Q`** | **Đóng cửa sổ** đang focus |
+| **`Mod + Esc`** | Thoát compositor (hiện hộp thoại xác nhận) |
+| **`Mod + Shift + Esc`** | Bật/tắt nhường phím tắt cho app (game / VM) |
+| **`Print`** | Chụp ảnh vùng chọn |
+| **`Mod + Print`** | Chụp ảnh toàn màn hình |
+### 7.2. Di chuyển Focus
+| Phím tắt | Chức năng |
+| :--- | :--- |
+| **`Mod + H / J / K / L`** (hoặc **Mũi tên**) | Focus sang cửa sổ **Trái / Xuống / Lên / Phải** |
+| **`Mod + F1`** | Focus cửa sổ kế tiếp theo thứ tự layout |
+| **`Mod + Lăn chuột Lên / Xuống`** | Focus sang trái / phải |
+| **`Mod + Shift + ◄ / ►`** | Di chuyển **cột** sang trái / phải |
+| **`Mod + Shift + ▲ / ▼`** | Di chuyển **cửa sổ** lên / xuống trong cột |
+### 7.3. Cửa sổ & Layout
+| Phím tắt | Chức năng |
+| :--- | :--- |
+| **`Mod + T`** | Bật/tắt nổi (float) cho cửa sổ đang focus |
+| **`Mod + Shift + T`** | Focus sang cửa sổ có trạng thái nổi ngược lại |
+| **`Mod + P`** | Ghim cửa sổ (pin — luôn nổi trên cùng) |
+| **`Mod + F`** | Bật/tắt toàn màn hình (fullscreen) |
+| **`Mod + Ctrl + F`** | Maximize đầy cột (giữ gaps/border) |
+| **`Mod + R`** / **`Mod + Shift + R`** | Tăng / giảm kích thước cột theo preset (0.5 / 0.8 / 1.0) |
+| **`Mod + ,`** / **`Mod + .`** | Gộp (consume) cửa sổ vào cột bên trái / phải |
+| **`Mod + Ctrl + ,`** / **`Mod + Ctrl + .`** | Kéo cửa sổ từ cột bên trái / phải vào cột hiện tại |
+| **`Mod + W`** | Gộp các cửa sổ xếp chồng trong cột thành **nhóm Tab** (nhấn lại để bỏ) |
+| **`Mod + Alt + ◄ / ►`** | Chuyển sang **tab trước / sau** trong nhóm tab |
+| **`Mod + O`** | Mở / đóng **Overview** (xem tổng quan các workspace) |
+### 7.4. Workspace
+| Phím tắt | Chức năng |
+| :--- | :--- |
+| **`Mod + 1` … `Mod + 9`** | Chuyển tới workspace 1…9 |
+| **`Mod + Shift + 1` … `Mod + Shift + 9`** | Đưa cửa sổ đang focus sang workspace 1…9 |
+
+> Ghi chú: mỗi màn hình chỉ có **3 workspace** — ws1 = scrolling, ws2 = master, ws3 = floating.
+### 7.5. Scratchpad (cửa sổ ẩn gọi nhanh)
+| Phím tắt | Chức năng |
+| :--- | :--- |
+| **`Mod + Space`** | Bật / tắt scratchpad |
+| **`Mod + Shift + Space`** | Đưa cửa sổ đang focus vào scratchpad |
+| **`Mod + Ctrl + Space`** | Lấy cửa sổ ra khỏi scratchpad (trả về chỗ cũ) |
+| **`Mod + Tab`** | Focus cửa sổ scratchpad kế tiếp |
+### 7.6. Phím chức năng (Fn + F1 … F12)
+| Phím | Chức năng |
+| :--- | :--- |
+| **`Fn + F1`** | Giảm độ sáng màn hình |
+| **`Fn + F2`** | Tăng độ sáng màn hình |
+| **`Fn + F6`** | Mở trình phát nhạc — Sonora |
+| **`Fn + F7`** | Bài hát trước |
+| **`Fn + F8`** | Phát / Tạm dừng |
+| **`Fn + F9`** | Bài hát kế tiếp |
+| **`Fn + F10`** | Tắt tiếng |
+| **`Fn + F11`** | Giảm âm lượng |
+| **`Fn + F12`** | Tăng âm lượng |
+
+> Ghi chú: các tổ hợp `Fn` trên Linux phát ra keysym `XF86*` (vd `XF86MonBrightnessUp`). Nếu phím nào không ăn, mở terminal chạy `wev` rồi bấm thử để xem tên keysym thực tế.
