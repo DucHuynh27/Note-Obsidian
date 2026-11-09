@@ -11,117 +11,199 @@ aliases:
   - Cài môi trường code
 ---
 > [!NOTE]
-> Thay vì dự án nào cũng setup môi trường, hãy gom các dự án cùng ngôn ngữ vào một thư mục cha (Workspace).
-> 1. Tạo thư mục cha (VD: mkdir Java-Workspace && cd Java-Workspace)
-> 2. Chạy 3 lệnh khởi tạo Nix ở đây.
-> 3. Kể từ giờ, cứ vô tư dùng các lệnh sinh code (nest new, pnpm create...) để tạo ra hàng loạt dự án con bên trong. Công cụ direnv sẽ tự động mang môi trường từ thư mục cha áp dụng xuống thư mục con.
----
-## 1. HỆ SINH THÁI NODE.JS (React, Vue, [[NestJS]], TS thuần...)
-> [!TIP]
-> **Khuyên dùng fnm thay vì Nix Flake cho Node.js:**
-> Node.js ra bản mới rất nhanh (v24, v26...). Việc dùng Nix Flake làm chậm tiến độ cập nhật do phụ thuộc vào nixpkgs và gây nặng máy khi compile. 
-> Do đó, toàn bộ Node.js hiện tại được quản lý linh hoạt qua **fnm (Fast Node Manager)** đã được tích hợp sẵn vào Zsh shell.
+> **Hai tầng môi trường, chọn theo độ "nặng" của project:**
+> - **Nhẹ (CRUD, script, học tập)** → dùng `fnm` cho Node, hoặc không cần gì cho HTML/CSS/JS.
+> - **Nặng (native deps, cần cài lại chính xác)** → dùng **flakes + direnv**.
+>
+> Không cài `nodejs`/`yarn` global. Tầng toolchain cá nhân nằm ở `~/nix-config` (flake này), cấp qua `nix develop`.
 
-### Quản lý phiên bản với fnm:
-- **Cài đặt phiên bản Node mới nhất:**
+> [!TIP]
+> **Chiến thuật Workspace**: gom các project cùng ngôn ngữ vào một thư mục cha, đặt `flake.nix` + `.envrc` ở cha. `direnv` (nix-direnv) tự mang môi trường áp xuống các thư mục con.
+> ```bash
+> mkdir Java-Workspace && cd Java-Workspace
+> # tạo flake.nix + .envrc ở đây, rồi cứ tạo project con bên trong bình thường
+> ```
+
+## 0. Quyết định dùng gì (Decision Tree)
+
+```
+Bắt đầu project Node.js
+        │
+        ▼
+Project có native deps không?
+(sharp, canvas, bcrypt, node-gyp, prisma...)
+        │
+   ┌────┴────┐
+  KHÔNG      CÓ
+   │          │
+   ▼          ▼
+fnm +     flake + direnv
+.node-version   (hoặc `nix develop` từ ~/nix-config)
+   │          │
+   ▼          ▼
+pnpm init   nix develop
+pnpm add    pnpm install
+```
+
+| Tiêu chí | fnm | flake + direnv |
+|---|---|---|
+| Tốc độ setup | tức thì | cần viết/khởi tạo `flake.nix` |
+| Reproducibility | thấp (máy nào cũng khác) | 100% khớp |
+| Team không dùng Nix | dùng chung được (`.node-version`) | không dùng được |
+| Native deps (gcc, libvips…) | tự lo, hay fail | có sẵn trong shell |
+| Cognitive load | thấp | cao hơn |
+
+> [!IMPORTANT]
+> Đừng dùng `nix develop` cho project CRUD nhẹ (thừa), và đừng dùng `fnm` cho project có native deps nặng (sẽ fail).
+
+---
+## 1. NODE.JS (React, Vue, [[NestJS]], TS thuần...)
+
+### 1a. Project nhẹ — `fnm` + `.node-version`
+
+`fnm` (Fast Node Manager) đã cài global và tích hợp sẵn vào Zsh (`modules/home-manager/tui/zsh.nix`), `FNM_DIR=~/.local/share/fnm` đặt trong `home.sessionVariables`.
+
+- **Cài & đặt bản mặc định:**
   ```bash
-  fnm install 24.22.1    # Cài đặt bản mong muốn
-  fnm default 24.22.1    # Đặt làm bản mặc định toàn hệ thống
+  fnm install 24.22.1
+  fnm default 24.22.1
   ```
-- **Chỉ định Node cho từng dự án / Workspace:**
-  Tạo file `.node-version` ở thư mục dự án (hoặc thư mục cha chứa các dự án):
+- **Ghim version cho từng project / workspace** — tạo `.node-version` ở thư mục dự án (hoặc cha):
   ```bash
   echo "24.22.1" > .node-version
   ```
-  *(Khi `cd` vào thư mục, fnm sẽ tự động kích hoạt phiên bản Node tương ứng mà không cần `direnv` hay `flake.nix`)*
+  `fnm env --use-on-cd` lo việc `cd` vào là tự đổi Node, **không cần** `direnv` hay `flake.nix`. (`fnm` cũng đọc `.nvmrc`.)
 
-### Tạo các dự án con:
-- Nếu làm Frontend (React/Vue bằng Vite):
-  Sinh thẳng code vào thư mục hiện tại (nhờ dấu .)
+### 1b. Project có native deps — flake + direnv
+
+Mẫu đang dùng ở `~/Projects/AI-Interview/flake.nix` (Node 22 + pnpm + fix Prisma trên NixOS):
+
+```nix
+devShells.default = pkgs.mkShell {
+  packages = with pkgs; [ nodejs_22 pnpm prisma-engines ];
+  env.PRISMA_SCHEMA_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/schema-engine";
+};
 ```
-mkdir frontend && cd frontend
-pnpm create vite@latest . --template react-ts
-pnpm install
-pnpm run dev
+
+`.envrc` tương ứng:
+```bash
+use flake
 ```
-- Nếu làm TS cơ bản / Script (như các buổi học):
-```
-mkdir buoi4 && cd buoi4
-pnpm init
-# Cài TS
-pnpm add -D typescript @types/node
-```
+
+Hoặc dùng tầng toolchain có sẵn của repo (`~/nix-config`): `nix develop ~/nix-config` cho `fnm`, `gcc`, `gnumake`, `jdk25`, `pnpm`.
+
+### 1c. Tạo project con
+
+- **Frontend (React/Vue bằng Vite)** — sinh vào thư mục hiện tại nhờ dấu `.`:
+  ```
+  mkdir frontend && cd frontend
+  pnpm create vite@latest . --template react-ts
+  pnpm install
+  pnpm run dev
+  ```
+- **TS cơ bản / Script (các buổi học):**
+  ```
+  mkdir buoi4 && cd buoi4
+  pnpm init
+  pnpm add -D typescript @types/node
+  ```
+
 > [!NOTE]
-> BẮT BUỘC dùng `pnpm exec` thay vì `npx` để tránh lỗi xung đột hệ sinh thái: `pnpm exec tsc --init`
+> BẮT BUỘC dùng `pnpm exec` thay vì `npx` để tránh xung đột hệ sinh thái: `pnpm exec tsc --init`
 
 Cấu hình cho dự án TS:
-1. Mở file tsconfig.json, tìm và mở khóa (xóa dấu //) 2 dòng sau:
-```
-"rootDir": "./src"
-"outDir": "./dist"
-```
-2. Mở file package.json và thêm cụm lệnh này vào phần "scripts":
-```
-"scripts": {
-      "dev": "node --experimental-strip-types src/index.ts",
-      "run-ts": "node --experimental-strip-types",
-      "build": "tsc",
-      "start": "node dist/index.js"
-    }
-```
+1. Mở `tsconfig.json`, bỏ comment 2 dòng sau:
+   ```
+   "rootDir": "./src"
+   "outDir": "./dist"
+   ```
+2. Mở `package.json`, thêm vào `"scripts"`:
+   ```
+   "scripts": {
+         "dev": "node --experimental-strip-types src/index.ts",
+         "run-ts": "node --experimental-strip-types",
+         "build": "tsc",
+         "start": "node dist/index.js"
+       }
+   ```
 
 > [!NOTE]
 > Chạy code TS:
-> - Để chạy trực tiếp: node --experimental-strip-types <tên-file.ts>
-> - Để dịch ra file JS chuẩn rồi mới chạy: Gõ pnpm build && pnpm start
-> Chạy code React, Vue, Angular bằng Vite: pnpm run dev
-> Chạy Backend ([[NestJS]]): pnpm start:dev
+> - Chạy trực tiếp: `node --experimental-strip-types <tên-file.ts>`
+> - Dịch ra JS rồi chạy: `pnpm build && pnpm start`
+> - React/Vue/Angular (Vite): `pnpm run dev`
+> - Backend ([[NestJS]]): `pnpm start:dev`
 
-- Nếu làm Backend ([[NestJS]]):
-Lệnh này tự động sinh ra thư mục backend
-```
-nest new backend --package-manager pnpm # Thay backend thành tên muốn tạo)
-cd backend
-# (Nếu gặp lỗi thiếu thư viện do pnpm chặn, chỉ cần gõ thêm: pnpm install)
-pnpm start:dev
-```
+- **Backend ([[NestJS]]):**
+  ```
+  nest new backend --package-manager pnpm   # đổi "backend" thành tên muốn tạo
+  cd backend
+  # nếu pnpm chặn thiếu thư viện: pnpm install
+  pnpm start:dev
+  ```
+
+---
 ## 2. PYTHON (Data Science, AI, Backend Python)
-Lưu ý cực kỳ quan trọng: Không giống Node.js, Python quản lý thư viện bằng môi trường ảo (Virtualenv).
-- Nếu setup Nix ở thư mục cha: Toàn bộ dự án con sẽ dùng chung một rổ thư viện. (Tuyệt vời để học tập, làm bài tập vì cài 1 lần xài ở
-  mọi thư mục).
-- Nếu làm dự án công ty: Khuyên bạn KHÔNG setup ở thư mục cha, mà dự án nào phải tự setup Nix riêng cho dự án đó để không bị dính chùm thư viện.
-Quy trình chuẩn cho 1 dự án (hoặc 1 Workspace học tập):
-1. Khởi tạo môi trường
-```
-nix flake init -t github:the-nix-way/dev-templates#python
-```
-2. RẤT QUAN TRỌNG: Thêm layout python để chống lỗi Read-only khi dùng lệnh pip
-```
-echo "use flake" > .envrc
-echo "layout python3" >> .envrc
-direnv allow
-```
+
+Python quản lý thư viện bằng **virtualenv**, không phải bằng file lock của pnpm/maven.
+
+- Nếu setup flake ở **thư mục cha**: các project con **dùng chung một rổ thư viện** (tuyệt cho học tập, bài tập).
+- Nếu là **project công ty**: KHÔNG setup ở cha — mỗi project tự có flake riêng để không dính chùm thư viện.
+
+Quy trình chuẩn cho 1 project (hoặc 1 workspace học tập):
+1. Khởi tạo flake Python:
+   ```
+   nix flake init -t github:the-nix-way/dev-templates#python
+   ```
+   Template này đặt `venvDir = ".venv"` và tự tạo virtualenv khi vào shell.
+2. Bật direnv (quan trọng — thêm `layout python3` để `pip` không lỗi read-only):
+   ```
+   echo "use flake" > .envrc
+   echo "layout python3" >> .envrc
+   direnv allow
+   ```
 
 > [!NOTE]
-> Từ giờ cứ dùng pip install <tên> bình thường, thư viện sẽ lưu vào thư mục ẩn .direnv của dự án.
+> Từ giờ `pip install <tên>` chạy bình thường; thư viện nằm trong `.venv` của project.
+> Neovim tự ưu tiên `./.venv/bin` (xem mục 5) nên `black`/`isort`/`pyright` sẽ lấy đúng bản trong venv.
+
 ---
 ## 3. JAVA (Spring Boot, Java Core)
-Giống như Node.js, Maven và Gradle tự quản lý file thư viện nội bộ.
-Bạn có thể áp dụng chiến thuật Workspace Cấp Cha thoải mái!
-Quy trình:
-Tải môi trường Java (JDK) vào thư mục cha
+
+Giống Node: Maven/Gradle tự quản lý file thư viện, nên dùng chiến thuật **Workspace cấp cha** thoải mái.
 ```
 nix flake init -t github:the-nix-way/dev-templates#java
 echo "use flake" > .envrc
 direnv allow
 ```
+Flake Java dùng biến `javaVersion` (ví dụ đang là `21`) — sửa số đó để đổi cả JDK + Maven/Gradle.
+
 > [!NOTE]
-> Lệnh này chỉ "bơm" bộ biên dịch Java JDK vào máy. Sau đó bạn dùng Spring Initializr hoặc IDE như IntelliJ/Eclipse để sinh code dự án con bình thường.
+> Lệnh này chỉ "bơm" JDK/Maven/Gradle vào máy. Sau đó dùng Spring Initializr hoặc IntelliJ/Eclipse để sinh project con bình thường.
+> Nếu chỉ cần JDK để nghịch: `nix develop ~/nix-config` đã có `jdk25`.
+
 ---
 ## 4. HTML / CSS / JS (Giao diện tĩnh)
-Không cần dùng Nix hay setup môi trường!
-- Trình duyệt đã hiểu sẵn HTML/CSS.
-- Mẹo: Nếu muốn chạy Live Server (tự động tải lại trang khi lưu
-  file), hãy chạy môi trường #node, sau đó gõ: pnpm dlx live-server
-- Ngay khi chạy lệnh, trình duyệt web của bạn sẽ tự động bật lên (hoặc bạn click vào link http://127.0.0.1:8080 trên Terminal).
-- Từ giờ, bạn cứ mở code lên sửa. Cứ mỗi lần bấm Lưu, màn hình web sẽ lập tức thay đổi theo thời gian thực! (Khi nào code xong, quay lại Terminal bấm Ctrl + C để tắt server).
+
+Không cần Nix hay setup gì:
+- Trình duyệt hiểu sẵn HTML/CSS.
+- Muốn Live Server (tự reload khi lưu): chạy trong môi trường có Node rồi `pnpm dlx live-server`. Trình duyệt tự mở `http://127.0.0.1:8080`; `Ctrl+C` để tắt.
+
+---
+## 5. Neovim tự ưu tiên binary của project
+
+`~/nix-config/modules/home-manager/editors/nvim/lua/core/local-bin.lua` prepend `node_modules/.bin`, `.venv/bin`, `venv/bin` vào `PATH` mỗi khi vào Neovim / đổi thư mục. Nhờ đó:
+
+- `typescript-language-server`, `tailwindcss-language-server`, `prettier` → lấy từ `./node_modules/.bin`.
+- `pyright`, `black`, `isort` → lấy từ `./.venv/bin`.
+
+Phía LSP được chia 2 tier:
+- **Global** (ổn định, không phụ thuộc version project): `nil`, `alejandra`, `stylua`, `lua-language-server`, `bash-language-server`, `dockerfile-language-server`, `yaml-language-server`, `jdt-language-server`, `texlab`, `tree-sitter`, `vscode-langservers-extracted` (html/css/json/eslint).
+- **Project-local**: `typescript-language-server`, `tailwindcss-language-server`, `prettier`, `pyright`, `black`, `isort`.
+
+---
+## 6. Định hướng mở rộng (chưa triển khai)
+
+- [ ] Thư mục `templates/` trong dotfiles: `nestjs-shell.nix`, `spring-shell.nix`, `fastapi-shell.nix`.
+- [ ] Script helper trong `tui/scripts.nix`: `nix-init-nestjs`, `nix-init-spring`, `nix-init-fastapi` (tạo `flake.nix` + `.envrc` + `direnv allow` trong 1 lệnh).
+- [ ] Thêm `pnpm` vào `home.packages` nếu muốn bản pnpm do Nix quản thay vì pnpm tự cài ở `~/.local/share/pnpm`.
